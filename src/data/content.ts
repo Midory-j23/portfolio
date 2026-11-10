@@ -1,3 +1,7 @@
+import type { CaseStudy } from "./caseStudy";
+import { chatbot } from "./chatbot";
+import { padibot } from "./padibot";
+
 /**
  * Single source of truth for all portfolio content.
  * Anything marked `placeholder: true` (or wrapped in [brackets]) is a stand-in:
@@ -98,29 +102,35 @@ export interface Project {
   /** Path under /public, e.g. "/projects/gpu.png". Falls back to a generated placeholder. */
   image?: string;
   visual: "gpu" | "chat" | "crm" | "network" | "widget";
+  /** Optional long-form case study, opened in a modal from the project card. */
+  caseStudy?: CaseStudy;
 }
 
 export const projects: Project[] = [
   {
     index: "01",
-    name: "AI Customer Service Plugin",
-    category: "AI · Website Plugin",
+    name: "Padibot — AI Customer Service Plugin",
+    category: "AI · WordPress Plugin",
     overview:
-      "An AI-powered customer service assistant that embeds into a website as a chat widget, answering visitors' questions directly on the page.",
+      "A WordPress plugin that adds a branded, right-to-left Persian AI assistant to a company website. It answers visitors from approved knowledge, captures leads and hands people over to a human when needed.",
     contribution:
-      "Designed and built the embeddable chat widget in React and Vite, with n8n workflows handling automation and backend processes.",
-    technologies: ["React.js", "Vite", "PHP", "LLM integration"],
+      "Built end to end: the chat widget, retrieval and guardrail logic, streaming pipeline, data layer and admin dashboards.",
+    technologies: ["PHP", "WordPress", "JavaScript", "SSE", "Gemma 3"],
+    demoUrl: "https://padisarco.ir",
+    caseStudy: padibot,
     visual: "widget",
   },
   {
     index: "02",
     name: "Company Chatbot",
-    category: "AI · LLM Application",
+    category: "AI · Full-Stack Application",
     overview:
-      "A conversational assistant for company use, with a clear chat interface and workflows behind it that connect the model to business processes.",
+      "Padi Bot: a private, Persian-first AI chat assistant with accounts, saved conversations and streamed answers from self-hosted language models.",
     contribution:
-      "Designed and implemented the chatbot interface in React and Vite, and developed the n8n workflows that power it.",
-    technologies: ["React.js", "Vite", "LLM integration"],
+      "Built both halves: the React and TypeScript chat client, and the FastAPI backend for accounts, history, model routing and streaming.",
+    technologies: ["React.js", "TypeScript", "FastAPI", "PostgreSQL", "Ollama"],
+    image: "/case-studies/chatbot/chat.png",
+    caseStudy: chatbot,
     visual: "chat",
   },
   {
@@ -164,9 +174,9 @@ export const skills = [
   },
   {
     group: "Backend Development",
-    items: ["Python", "FastAPI", "PHP (Laravel)", "REST APIs"],
+    items: ["Python", "FastAPI", "PHP (Laravel)", "WordPress plugins", "REST APIs"],
   },
-  { group: "Databases", items: ["PostgreSQL", "MongoDB"] },
+  { group: "Databases", items: ["MySQL", "PostgreSQL", "MongoDB"] },
   { group: "UI/UX Design", items: ["Figma", "Interface design", "Prototyping"] },
   {
     group: "AI & Automation",
