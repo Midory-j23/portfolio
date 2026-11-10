@@ -151,7 +151,8 @@ export function ProjectVisual({ project }: { project: Project }) {
         alt={`${project.name} screenshot`}
         fill
         sizes="(min-width: 768px) 560px, 100vw"
-        className="object-cover"
+        className="object-cover object-top"
+        unoptimized
       />
     );
   }
