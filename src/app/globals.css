@@ -4,9 +4,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
-  background: #000;
-  color-scheme: dark;
+  scroll-padding-top: 4.5rem;
+  background: #100f0e;
 }
 
 body {
@@ -14,9 +13,21 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Film grain over the whole sheet: one static SVG noise tile, no per-frame work. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
 ::selection {
-  background: #7928ca;
-  color: #fff;
+  background: #e2281b;
+  color: #f4efe5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -32,31 +43,40 @@ body {
   }
 }
 
+/* Section tones: each sets background, text colour and the accent used by <Accent>. */
+.tone-ink { background: #100f0e; color: #f4efe5; --accent: #e2281b; }
+.tone-red { background: #e2281b; color: #f4efe5; --accent: #100f0e; }
+.tone-bone { background: #ebe5d8; color: #100f0e; --accent: #e2281b; }
+.tone-paper { background: #f4efe5; color: #100f0e; --accent: #e2281b; }
+
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[1360px] px-5 sm:px-8 lg:px-12;
   }
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted;
+    @apply font-mono text-[11px] uppercase tracking-[0.2em];
   }
   .text-gradient {
-    @apply bg-gradient-to-b from-white to-white/55 bg-clip-text text-transparent;
+    @apply text-fg;
   }
   .text-brand {
-    @apply bg-gradient-to-r from-brand-blue via-brand-violet to-brand-pink bg-clip-text text-transparent;
-  }
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+    color: #e2281b;
   }
   .focus-ring {
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue;
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current;
   }
+  /* thin editorial rules that follow the section's text colour */
+  .rule { border-color: color-mix(in srgb, currentColor 35%, transparent); }
+  .rule-dot { border-style: dotted; border-color: color-mix(in srgb, currentColor 45%, transparent); }
   .chip {
-    @apply inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-muted transition-colors;
+    @apply rule-dot inline-flex items-center border px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted transition-colors;
   }
+  .link-u {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.65, 0, 0.2, 1);
+  }
+  .link-u:hover { background-size: 0% 1px; background-position: 100% 100%; }
 }

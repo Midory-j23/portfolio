@@ -12,20 +12,23 @@ export function SectionHeading({
   sub?: string;
 }) {
   return (
-    <Reveal className="mb-12 md:mb-16">
-      <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-        <span className="text-brand">{index}</span>
-        {label}
-      </p>
-      <h2 className="text-gradient max-w-3xl text-[clamp(2.2rem,5.5vw,4.25rem)] font-semibold leading-[1.05] tracking-[-0.045em]">
-        {title}
-      </h2>
-      {sub && <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">{sub}</p>}
+    <Reveal className="mb-14 md:mb-20">
+      <div className="rule-dot mb-8 flex items-center justify-between border-t pt-3 font-mono text-[11px] uppercase tracking-[0.2em]">
+        <span>§ {index}</span>
+        <span>{label}</span>
+        <span className="hidden opacity-60 sm:block">Plate {index} / 05</span>
+      </div>
+      <h2 className="font-display text-[clamp(3rem,9.5vw,9rem)] uppercase leading-[0.9] tracking-[-0.005em]">{title}</h2>
+      {sub && <p className="mt-6 max-w-xl text-base leading-relaxed opacity-75 md:text-lg">{sub}</p>}
     </Reveal>
   );
 }
 
-/** Serif italic accent word used inside headings. */
+/** Serif italic accent word used inside headings; takes the section's accent colour. */
 export function Accent({ children }: { children: React.ReactNode }) {
-  return <em className="text-brand pr-[0.08em] font-serif font-normal italic tracking-[-0.02em]">{children}</em>;
+  return (
+    <em className="pr-[0.06em] font-serif text-[1.06em] font-normal normal-case italic tracking-[-0.02em] text-[var(--accent)]">
+      {children}
+    </em>
+  );
 }
