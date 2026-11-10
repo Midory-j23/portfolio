@@ -45,7 +45,7 @@ export function About() {
               <div className="flex h-full min-h-[240px] flex-col justify-between p-7 md:p-8">
                 <span className="eyebrow">Experience</span>
                 <div>
-                  <span className="text-brand text-[8rem] font-semibold leading-[0.85] tracking-[-0.08em]">
+                  <span className="text-brand text-[8rem] font-semibold leading-[0.85]">
                     {profile.years}
                   </span>
                   <p className="mt-3 text-sm text-muted">years building for the web</p>

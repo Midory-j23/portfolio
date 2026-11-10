@@ -67,7 +67,7 @@ export const experience: ExperienceEntry[] = [
   {
     company: "Freelance",
     position: "Frontend Developer",
-    duration: "From June 2024 . Still working",
+    duration: "From June 2025 . Still working",
     responsibilities: [
       "Designed a dedicated medical website for Payesh Salamat Iranian Company, including a custom dashboard, a login page and other specialised functionality.",
     ],
