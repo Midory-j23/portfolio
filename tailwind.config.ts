@@ -1,20 +1,31 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Design system derived from the Wild Hunt footer:
+ * vermilion · warm off-white · bone · deep ink, set in Anton + serif italic + mono.
+ * Legacy token names (bg, fg, brand.*) are kept and re-pointed at this palette so
+ * older components (the case-study modal) stay on-brand.
+ */
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        bg: "#000000",
-        surface: "#0a0a0a",
-        card: "#111111",
-        fg: "#ededed",
-        muted: "#a1a1a1",
-        dim: "#6b6b6b",
-        brand: { blue: "#0070f3", violet: "#7928ca", pink: "#ff0080", amber: "#f5a623", teal: "#00d4b4" },
+        ink: "#100f0e",
+        vermilion: "#e2281b",
+        paper: "#f4efe5",
+        bone: "#ebe5d8",
+        bg: "#100f0e",
+        surface: "#161412",
+        card: "#1d1a17",
+        fg: "#f4efe5",
+        muted: "#b8b0a2",
+        dim: "#837b6e",
+        brand: { blue: "#e2281b", violet: "#ee4a2b", pink: "#ff6b3d", amber: "#e9b44c", teal: "#d9d0bb" },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Impact", "sans-serif"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
@@ -34,7 +45,7 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 40s linear infinite",
+        marquee: "marquee 45s linear infinite",
         pulseDot: "pulseDot 2s ease-in-out infinite",
         blob: "blob 14s ease-in-out infinite",
         scrollLine: "scrollLine 2s cubic-bezier(.65,0,.35,1) infinite",

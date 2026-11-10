@@ -1,21 +1,25 @@
 import { skills } from "@/data/content";
+import { Section } from "./Section";
 
 export function Marquee() {
   const items = Array.from(new Set(skills.flatMap((s) => s.items)));
   const row = [...items, ...items];
   return (
-    <div
-      aria-hidden
-      className="relative overflow-hidden border-y border-white/10 py-5 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]"
-    >
-      <div className="flex w-max animate-marquee gap-3">
+    <Section tone="ink" prev="red" className="py-10 md:py-14">
+      <div aria-hidden className="flex w-max animate-marquee items-center gap-8 whitespace-nowrap">
         {row.map((t, i) => (
-          <span key={i} className="chip whitespace-nowrap !px-4 !py-1.5 !text-sm">
-            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-gradient-to-r from-brand-blue to-brand-pink" />
-            {t}
+          <span key={i} className="flex items-center gap-8">
+            <span
+              className={`font-display text-[clamp(2.6rem,6vw,5rem)] uppercase leading-none ${
+                i % 3 === 1 ? "text-transparent [-webkit-text-stroke:1px_#f4efe5]" : ""
+              }`}
+            >
+              {t}
+            </span>
+            <span className="text-3xl text-vermilion">✺</span>
           </span>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }

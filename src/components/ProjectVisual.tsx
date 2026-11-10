@@ -2,11 +2,11 @@ import Image from "next/image";
 import type { Project } from "@/data/content";
 
 const themes: Record<Project["visual"], string> = {
-  gpu: "from-[#0070f3] via-[#4f46e5] to-[#7928ca]",
-  chat: "from-[#ff0080] via-[#ff4d4d] to-[#f5a623]",
-  crm: "from-[#00d4b4] via-[#0ea5e9] to-[#0070f3]",
-  network: "from-[#7928ca] via-[#a21caf] to-[#ff0080]",
-  widget: "from-[#f5a623] via-[#ff4d4d] to-[#7928ca]",
+  gpu: "from-[#e2281b] via-[#b81e14] to-[#100f0e]",
+  chat: "from-[#e2281b] via-[#ee4a2b] to-[#e9b44c]",
+  crm: "from-[#d9d0bb] via-[#e9b44c] to-[#e2281b]",
+  network: "from-[#100f0e] via-[#5a1410] to-[#e2281b]",
+  widget: "from-[#e9b44c] via-[#e2281b] to-[#100f0e]",
 };
 
 function Window({ children, label }: { children: React.ReactNode; label: string }) {
@@ -101,7 +101,7 @@ function Network() {
         {nodes.map(([x, y], i) => (
           <g key={i}>
             <circle cx={x} cy={y} r="7" fill="rgba(255,0,128,.15)" />
-            <circle cx={x} cy={y} r="3.6" fill={i === 0 ? "#ff0080" : "#7928ca"} />
+            <circle cx={x} cy={y} r="3.6" fill={i === 0 ? "#e2281b" : "#e9b44c"} />
           </g>
         ))}
       </svg>
