@@ -4,8 +4,7 @@ import { padibot } from "./padibot";
 
 /**
  * Single source of truth for all portfolio content.
- * Anything marked `placeholder: true` (or wrapped in [brackets]) is a stand-in:
- * replace it with your real details. Nothing here is invented history or metrics.
+ * Project contributions stay inside the skills and work already listed here.
  */
 
 export const profile = {
@@ -13,10 +12,10 @@ export const profile = {
   wordmark: "MG",
   role: "Software Developer",
   years: 3,
-  location: "[Tehran, Iran]", // TODO: replace
+  location: "Tehran, Iran",
   email: "mohammadj23ghm83@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohammad-ghasemian",
-  github: "https://github.com/Midory-j23", // TODO: replace
+  github: "https://github.com/Midory-j23",
   available: true,
   availability: "Available for new opportunities",
 };
@@ -63,15 +62,15 @@ export const experience: ExperienceEntry[] = [
       "Designed and implemented a chatbot and a chatbot widget with React and Vite, building a responsive, interactive interface.",
       "Developed multiple n8n workflows that connect automation and backend processes to extend the chatbot's functionality.",
       "Built a CRM dashboard.",
-      "Design and Built Loan and Customer service dashboard for bank",
-      "Design and Develop a network management system dashboard for monitoring devices and their status.",
+      "Designed and built a loan and customer-service dashboard for a bank.",
+      "Designed and developed a network management dashboard for monitoring devices and their status.",
     ],
     technologies: ["React.js", "Vite", "n8n" ,"Python" ,"Next.js","PHP"],
   },
   {
     company: "Freelance",
     position: "Frontend Developer",
-    duration: "From June 2025 . Still working",
+    duration: "From June 2025 · Still working",
     responsibilities: [
       "Designed a dedicated medical website for Payesh Salamat Iranian Company, including a custom dashboard, a login page and other specialised functionality.",
     ],
@@ -139,8 +138,9 @@ export const projects: Project[] = [
     category: "Full-Stack Application",
     overview:
       "A customer relationship management app for keeping contacts and interactions organised in one place, behind a clean dashboard.",
-    contribution: "Built the CRM dashboard. [Add more detail about your part.]",
-    technologies: ["React.js","Python","FastAPI"],
+    contribution:
+      "Designed the dashboard in Figma, then built the React and TypeScript interface and the FastAPI API that keep contacts and their interactions in one place.",
+    technologies: ["Figma", "React.js", "TypeScript", "Tailwind CSS", "Python", "FastAPI"],
     visual: "crm",
   },
   {
@@ -150,8 +150,8 @@ export const projects: Project[] = [
     overview:
       "A network management system dashboard that brings devices and their status into a single, easy-to-scan interface.",
     contribution:
-      "[Describe your contribution: features built, integrations, interface decisions…]",
-    technologies: ["[Add technologies]"],
+      "Designed the monitoring interface in Figma and built it in React and TypeScript, so device status can be read in one view, with the readings served through a FastAPI REST API.",
+    technologies: ["Figma", "React.js", "TypeScript", "Tailwind CSS", "Python", "FastAPI", "REST APIs"],
     visual: "network",
   },
   {
@@ -161,8 +161,8 @@ export const projects: Project[] = [
     overview:
       "A dashboard for observing GPU resources — utilisation, memory and temperature — designed so the state of a machine can be read at a glance.",
     contribution:
-      "[Describe your contribution: interface design, React implementation, data integration…]",
-    technologies: ["[Add technologies]"],
+      "Designed the dashboard in Figma and built it with React and TypeScript so utilisation, memory and temperature can be read at a glance, with FastAPI supplying the machine readings.",
+    technologies: ["Figma", "React.js", "TypeScript", "Tailwind CSS", "Python", "FastAPI"],
     visual: "gpu",
   },
 ];

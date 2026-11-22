@@ -111,7 +111,7 @@ function Network() {
 
 function Widget() {
   return (
-    <Window label="your-website.com">
+    <Window label="padisarco.ir">
       <div className="relative h-full p-4">
         <div className="h-2 w-1/3 rounded-full bg-white/25" />
         <div className="mt-3 h-1.5 w-2/3 rounded-full bg-white/10" />
@@ -161,7 +161,7 @@ export function ProjectVisual({ project }: { project: Project }) {
     <div
       className={`absolute inset-0 bg-gradient-to-br ${themes[project.visual]}`}
       role="img"
-      aria-label={`${project.name} — illustrative preview, replace with a screenshot`}
+      aria-label={`${project.name} preview`}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,.35),transparent_45%)]" />
       <Visual />

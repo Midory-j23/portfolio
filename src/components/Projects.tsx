@@ -10,9 +10,7 @@ import { Section } from "./Section";
 import { Accent, SectionHeading } from "./SectionHeading";
 
 function LinkOrNote({ href, label }: { href?: string; label: string }) {
-  if (!href) {
-    return <span className="font-mono text-[11px] uppercase tracking-[0.16em] opacity-40">{label} · soon</span>;
-  }
+  if (!href) return null;
   return (
     <a
       href={href}
@@ -105,7 +103,7 @@ export function Projects() {
               Featured <Accent>projects.</Accent>
             </>
           }
-          sub="A selection of things I've designed and built. Where a project has no screenshot yet, the preview is an illustrative mockup."
+          sub="A selection of things I've designed and built."
         />
         <div className="grid gap-x-10 gap-y-20 md:grid-cols-12">
           {projects.map((p, i) => (

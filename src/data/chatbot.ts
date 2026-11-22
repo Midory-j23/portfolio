@@ -52,7 +52,7 @@ export const chatbot: CaseStudy = {
     },
   ],
   screensNote:
-    "Rendered from the project's real React frontend using sample data; no real conversations are shown.",
+    "Screens from the product. The conversations shown are examples, not live customer chats.",
   features: [
     {
       group: "Conversation experience",
