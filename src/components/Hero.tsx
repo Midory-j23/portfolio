@@ -17,9 +17,26 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
 
   return (
-    <section id="top" ref={ref} className="tone-red relative overflow-hidden pb-8 pt-24 md:pt-28">
+    <section id="top" ref={ref} className="tone-red relative isolate overflow-hidden pb-8 pt-24 md:pt-28">
+      {/* Atmospheric field: same Arbo plate as the footer, veiled so type stays legible */}
+      <motion.div
+        aria-hidden
+        style={{ y }}
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PAINTING}
+          alt=""
+          draggable={false}
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.38]"
+          style={{ objectPosition: "58% 18%", filter: "saturate(0.72) contrast(1.08) brightness(0.92)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-vermilion/48 via-vermilion/72 to-vermilion" />
+        <div className="absolute inset-0 bg-gradient-to-r from-vermilion/92 via-vermilion/80 to-vermilion/45" />
+      </motion.div>
       <Reticle />
-      <div className="container-x relative">
+      <div className="container-x relative z-[1]">
         {/* meta strip */}
         <Reveal>
           <div className="rule-dot flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t pt-3 font-mono text-[11px] uppercase tracking-[0.2em]">
@@ -37,11 +54,11 @@ export function Hero() {
           </div>
         </Reveal>
 
-        {/* headline over a duotone painting */}
+        {/* headline with inset plate — full-bleed type, plate floats top-right on md+ */}
         <div className="relative mt-8 md:mt-12">
           <motion.figure
             style={{ y }}
-            className="relative z-0 mb-6 md:absolute md:right-[2%] md:top-[2%] md:mb-0 md:w-[31%]"
+            className="relative z-0 mb-6 md:absolute md:right-0 md:top-0 md:mb-0 md:w-[min(24vw,300px)] lg:w-[min(26vw,340px)]"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             transition={{ duration: 1.3, delay: 0.3, ease: [0.65, 0, 0.2, 1] }}
@@ -53,8 +70,15 @@ export function Hero() {
                 alt=""
                 aria-hidden
                 draggable={false}
-                className="h-full w-full object-cover mix-blend-multiply"
-                style={{ objectPosition: "50% 26%", filter: "grayscale(1) contrast(1.35) brightness(1.05)" }}
+                className="h-full w-full object-cover"
+                style={{
+                  objectPosition: "50% 26%",
+                  filter: "grayscale(1) sepia(0.45) saturate(2.8) hue-rotate(346deg) contrast(1.2) brightness(0.95)",
+                }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-vermilion/25 mix-blend-color"
               />
             </div>
             <figcaption className="mt-2 flex justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80">
@@ -67,7 +91,7 @@ export function Hero() {
             as="h1"
             animateOnMount
             delay={0.15}
-            className="relative z-10 font-display text-[clamp(4rem,20.5vw,22rem)] uppercase leading-[0.84]"
+            className="relative z-10 w-full font-display text-[clamp(4rem,20.5vw,22rem)] uppercase leading-[0.84]"
             lines={[
               "Software",
               <span key="d">
