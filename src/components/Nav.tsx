@@ -36,7 +36,8 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-dotted border-paper/30 bg-ink/90 pt-[env(safe-area-inset-top,0px)] text-paper backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-dotted border-paper/30 bg-ink text-paper backdrop-blur-md">
+        <div className="h-[env(safe-area-inset-top,0px)] bg-ink" aria-hidden />
         <nav aria-label="Primary" className="container-x flex h-[var(--site-header-h)] min-h-14 items-center justify-between gap-3">
           <a href="#top" className="focus-ring flex items-baseline gap-3" aria-label={`${profile.name} — home`}>
             <span className="font-display text-2xl leading-none tracking-wide">{profile.wordmark}</span>

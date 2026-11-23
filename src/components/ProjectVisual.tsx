@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { Project } from "@/data/content";
+import { publicPath } from "@/lib/publicPath";
 
 const themes: Record<Project["visual"], string> = {
   gpu: "from-[#e2281b] via-[#b81e14] to-[#100f0e]",
@@ -146,13 +146,13 @@ const visuals: Record<Project["visual"], () => React.JSX.Element> = {
 export function ProjectVisual({ project }: { project: Project }) {
   if (project.image) {
     return (
-      <Image
-        src={project.image}
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={publicPath(project.image)}
         alt={`${project.name} screenshot`}
-        fill
-        sizes="(min-width: 768px) 560px, 100vw"
-        className="object-cover object-top"
-        unoptimized
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover object-top"
       />
     );
   }

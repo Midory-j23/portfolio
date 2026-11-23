@@ -38,7 +38,22 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
       { id: "challenges", label: "Challenges", title: "Challenges & how I solved them" },
       { id: "outcome", label: "Outcome", title: "Outcome" },
     ];
-    return list.map((s, i) => ({ ...s, n: String(i + 1).padStart(2, "0") }));
+    const tabLabels: Record<string, string> = {
+      overview: "Intro",
+      problem: "Goals",
+      solution: "Plan",
+      screens: "UI",
+      features: "Features",
+      architecture: "Stack",
+      highlights: "Tech",
+      challenges: "Build",
+      outcome: "Result",
+    };
+    return list.map((s, i) => ({
+      ...s,
+      tab: tabLabels[s.id] ?? s.label,
+      n: String(i + 1).padStart(2, "0"),
+    }));
   }, [study]);
   const num = (id: string) => sections.find((s) => s.id === id)!.n;
   const title = (id: string) => sections.find((s) => s.id === id)!.title;
@@ -46,11 +61,26 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
   // Lock page scroll, focus the dialog, restore focus on close.
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
     closeRef.current?.focus();
     return () => {
-      document.body.style.overflow = prevOverflow;
+      Object.assign(body.style, prev);
+      window.scrollTo(0, scrollY);
       previous?.focus?.();
     };
   }, []);
@@ -102,27 +132,31 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] flex items-stretch justify-center p-0 sm:items-center sm:p-6"
+      className="fixed inset-0 z-[60] sm:flex sm:items-center sm:justify-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} aria-hidden />
+      <div
+        className="absolute inset-0 bg-[#07070a] sm:bg-black/80 sm:backdrop-blur-md"
+        onClick={onClose}
+        aria-hidden
+      />
 
       <motion.div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="case-study-title"
-        className="relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[980px] flex-col overflow-hidden border border-white/10 bg-[#07070a] pt-[env(safe-area-inset-top,0px)] shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)] sm:h-[90dvh] sm:max-h-[90dvh] sm:rounded-3xl"
-        initial={{ opacity: 0, y: 50, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 40, scale: 0.98 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-0 z-10 flex min-h-0 flex-col overflow-hidden bg-[#07070a] sm:relative sm:inset-auto sm:h-[90dvh] sm:max-h-[90dvh] sm:w-full sm:max-w-[980px] sm:rounded-3xl sm:border sm:border-white/10 sm:shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* header */}
-        <div className="relative z-10 border-b border-white/10 bg-[#07070a]/90 backdrop-blur-xl">
+        <div className="relative z-10 shrink-0 border-b border-white/10 bg-[#07070a] pt-[env(safe-area-inset-top,0px)] sm:pt-0">
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-8 sm:py-4">
             <div className="flex min-w-0 items-center gap-3">
               <span aria-hidden className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-amber via-brand-pink to-brand-violet" />
@@ -170,9 +204,10 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 type="button"
                 onClick={() => goTo(s.id)}
                 aria-current={active === s.id ? "true" : undefined}
-                className="focus-ring shrink-0 rounded-full px-3 py-1.5 text-[11px] text-muted transition-colors hover:text-white aria-[current=true]:bg-white/10 aria-[current=true]:text-white sm:px-3.5 sm:text-[13px]"
+                className="focus-ring shrink-0 rounded-full px-2.5 py-1.5 text-[10px] text-muted transition-colors hover:text-white aria-[current=true]:bg-white/10 aria-[current=true]:text-white sm:px-3.5 sm:text-[13px]"
               >
-                {s.label}
+                <span className="sm:hidden">{s.tab}</span>
+                <span className="hidden sm:inline">{s.label}</span>
               </button>
             ))}
           </nav>
@@ -188,18 +223,21 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         <div ref={scrollRef} onScroll={onScroll} className="relative flex-1 overflow-y-auto overscroll-contain scroll-smooth">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,0,128,.16),transparent_70%)]" />
 
-          <div className="relative mx-auto max-w-[760px] px-4 pb-[max(5rem,env(safe-area-inset-bottom,0px))] pt-6 sm:px-8 sm:pb-20 sm:pt-10 md:pt-14">
-            {/* hero */}
-            <p className="mb-3 inline-flex max-w-full flex-wrap gap-x-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:mb-4 sm:text-[11px] sm:tracking-[0.14em]">
-              {study.tagline}
-            </p>
-            <h2 className="text-gradient text-[clamp(1.55rem,5.4vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em] sm:text-[clamp(1.85rem,6vw,3.75rem)]">
-              {study.title}:{" "}
-              <em className="text-brand pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em]">
-                {study.subtitle}
-              </em>
-            </h2>
-            {study.builtFor && <p className="mt-3 font-mono text-xs text-dim sm:mt-4">{study.builtFor}</p>}
+          <div className="relative mx-auto max-w-[760px] px-4 pb-[max(5rem,env(safe-area-inset-bottom,0px))] pt-4 sm:px-8 sm:pb-20 sm:pt-10 md:pt-14">
+            {/* hero — title lives in the sticky bar on phones */}
+            <div className="hidden sm:block">
+              <p className="mb-4 inline-flex max-w-full flex-wrap gap-x-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                {study.tagline}
+              </p>
+              <h2 className="text-gradient text-[clamp(1.85rem,6vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em]">
+                {study.title}:{" "}
+                <em className="text-brand pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em]">
+                  {study.subtitle}
+                </em>
+              </h2>
+              {study.builtFor && <p className="mt-4 font-mono text-xs text-dim">{study.builtFor}</p>}
+            </div>
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-dim sm:hidden">{study.tagline}</p>
 
             <div className="mt-8 space-y-12 sm:mt-14 sm:space-y-16">
               <section>
