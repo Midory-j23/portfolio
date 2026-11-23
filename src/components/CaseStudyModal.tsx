@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { CaseStudy } from "@/data/caseStudy";
+import { publicPath } from "@/lib/publicPath";
 
 function Heading({ index, id, children }: { index: string; id: string; children: React.ReactNode }) {
   return (
@@ -135,7 +136,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
             <div className="flex shrink-0 items-center gap-2">
               {study.pdf && (
                 <a
-                  href={study.pdf}
+                  href={publicPath(study.pdf)}
                   download
                   className="focus-ring hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06] sm:inline-flex"
                 >
@@ -227,7 +228,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                     {study.screens.map((s) => (
                       <figure key={s.src} className={s.wide ? "sm:col-span-2" : ""}>
                         <a
-                          href={s.src}
+                          href={publicPath(s.src)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`focus-ring group relative block overflow-hidden rounded-2xl border border-white/10 bg-black ${
@@ -237,7 +238,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={s.src}
+                            src={publicPath(s.src)}
                             alt={s.alt}
                             loading="lazy"
                             decoding="async"
@@ -348,7 +349,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                   )}
                   {study.pdf && (
                     <a
-                      href={study.pdf}
+                      href={publicPath(study.pdf)}
                       download
                       className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06]"
                     >
