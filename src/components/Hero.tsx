@@ -31,13 +31,13 @@ export function Hero() {
             style={{ objectPosition: "center 42%", filter: "grayscale(1) contrast(1.35) brightness(1.05)" }}
           />
         </div>
-        <figcaption className="absolute bottom-28 left-6 right-8 flex justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80 md:left-12 md:right-12">
+        <figcaption className="absolute bottom-28 left-6 right-8 hidden justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80 md:flex md:left-12 md:right-12">
           <span>Fig. 01</span>
           <span>Åsgårdsreien, 1872</span>
         </figcaption>
       </motion.figure>
 
-      <div className="container-x relative z-[2] flex flex-1 flex-col pb-8 pt-8 md:min-h-[100dvh] md:pb-10 md:pt-28">
+      <div className="container-x relative z-[2] flex flex-1 flex-col pb-8 pt-[calc(5.25rem+env(safe-area-inset-top))] md:min-h-[100dvh] md:pb-10 md:pt-[calc(7rem+env(safe-area-inset-top))]">
         {/* meta strip */}
         <Reveal>
           <div className="rule-dot flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t pt-3 font-mono text-[11px] uppercase tracking-[0.2em]">
@@ -73,9 +73,12 @@ export function Hero() {
         {/* statement + actions */}
         <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12 md:gap-10">
           <Reveal delay={0.4} className="md:col-span-6">
-            <p className="font-serif text-[clamp(1.7rem,3.2vw,3rem)] italic leading-[1.08] tracking-[-0.01em]">
+            <p className="font-serif text-[clamp(1.55rem,3.2vw,3rem)] italic leading-[1.28] tracking-[-0.01em] [text-shadow:0_1px_16px_rgba(80,8,6,0.55)]">
               {profile.name} designs and builds{" "}
-              <span className="text-ink">interfaces, systems &amp; intelligent products</span> for the web.
+              <span className="underline decoration-ink decoration-2 underline-offset-[0.18em]">
+                interfaces, systems &amp; intelligent products
+              </span>{" "}
+              for the web.
             </p>
           </Reveal>
           <Reveal delay={0.55} className="md:col-span-4 md:col-start-9">
@@ -98,8 +101,13 @@ export function Hero() {
           </Reveal>
         </div>
 
+        <p className="mt-10 flex justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80 md:hidden">
+          <span>Fig. 01</span>
+          <span>Åsgårdsreien, 1872</span>
+        </p>
+
         {/* coordinate scale */}
-        <div aria-hidden className="mt-auto flex items-end justify-between border-b border-dotted border-paper/50 pb-2 pt-12 md:pt-16">
+        <div aria-hidden className="mt-auto flex items-end justify-between border-b border-dotted border-paper/50 pb-2 pt-8 md:pt-16">
           {ticks.map((t) => (
             <span key={t} className="flex flex-col font-mono text-[9px] tracking-[0.14em] opacity-80">
               <span className="mb-1 block h-2 w-px bg-current" />

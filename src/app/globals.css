@@ -4,7 +4,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: calc(4.5rem + env(safe-area-inset-top));
   background: #100f0e;
 }
 

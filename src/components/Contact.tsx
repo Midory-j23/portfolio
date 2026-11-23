@@ -36,11 +36,11 @@ export function Contact() {
         </Reveal>
 
         <LineReveal
-          className="font-display text-[clamp(3.4rem,12.5vw,13rem)] uppercase leading-[0.86]"
+          className="font-display text-[clamp(2.7rem,11vw,13rem)] uppercase leading-[1.05]"
           lines={[
             "Let’s build",
             <span key="2">
-              something <em className="font-serif text-[1.06em] font-normal normal-case italic text-vermilion">thoughtful</em>
+              something <em className="inline-block font-serif text-[0.96em] font-normal normal-case italic leading-[1.05] text-vermilion">thoughtful</em>
             </span>,
             "together.",
           ]}

@@ -56,7 +56,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: (p: Projec
         </div>
       </div>
 
-      <h3 className="mt-6 font-display text-[clamp(2.4rem,4.6vw,4.4rem)] uppercase leading-[0.92]">{project.name}</h3>
+      <h3 className="mt-6 font-display text-[clamp(2.15rem,4.6vw,4.4rem)] uppercase leading-[1.02]">{project.name}</h3>
       <p className="mt-4 max-w-xl text-[15px] leading-relaxed opacity-80">{project.overview}</p>
       <p className="mt-3 max-w-xl font-serif text-lg italic leading-snug opacity-80">
         <span className="font-mono text-[10px] not-italic uppercase tracking-[0.18em] text-vermilion">Contribution — </span>
@@ -115,7 +115,7 @@ export function Projects() {
             <div className="tone-red flex min-h-[340px] flex-col justify-between p-8">
               <span className="font-mono text-[11px] uppercase tracking-[0.2em]">+ More</span>
               <div>
-                <h3 className="font-display text-[clamp(2.6rem,5vw,4.6rem)] uppercase leading-[0.92]">And more</h3>
+                <h3 className="font-display text-[clamp(2.3rem,5vw,4.6rem)] uppercase leading-[1.02]">And more</h3>
                 <p className="mt-3 max-w-xs text-[15px] leading-relaxed opacity-90">
                   There are more projects than fit here. Get in touch and I&rsquo;ll walk you through them.
                 </p>

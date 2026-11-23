@@ -337,6 +337,7 @@ const WHF_CSS = `
   .whf-vert { display: none; }
   .whf-foot { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: 14px; }
   .whf-legal { grid-template-columns: minmax(0, 1fr); margin-top: 10px; }
+  .whf-sig span { white-space: normal; }
   .whf-marks .whf-tick text { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

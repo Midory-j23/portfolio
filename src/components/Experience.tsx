@@ -29,7 +29,7 @@ export function Experience() {
                 </div>
 
                 <div className="min-w-0 md:col-span-5">
-                  <h3 className="break-words font-display text-[clamp(2.4rem,5vw,4.5rem)] uppercase leading-[0.92] transition-colors duration-300 group-hover:text-vermilion">
+                  <h3 className="break-words font-display text-[clamp(2.15rem,5vw,4.5rem)] uppercase leading-[1.02] transition-colors duration-300 group-hover:text-vermilion">
                     {job.company}
                   </h3>
                   <p className="mt-3 font-serif text-xl italic opacity-80 md:text-2xl">{job.position}</p>

@@ -185,9 +185,9 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
             <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
               {study.tagline}
             </p>
-            <h2 className="text-gradient text-[clamp(2.2rem,6vw,3.75rem)] font-semibold leading-[1.02] tracking-[-0.05em]">
+            <h2 className="text-gradient text-[clamp(1.85rem,6vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em]">
               {study.title}:{" "}
-              <em className="text-brand pr-[0.08em] font-serif font-normal italic tracking-[-0.02em]">
+              <em className="text-brand pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em]">
                 {study.subtitle}
               </em>
             </h2>

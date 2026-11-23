@@ -23,14 +23,21 @@ export function Nav() {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onResize = () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
   }, [open]);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-dotted border-paper/30 bg-ink/90 text-paper backdrop-blur-md">
-        <nav aria-label="Primary" className="container-x flex h-14 items-center justify-between">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-dotted border-paper/30 bg-ink/90 pt-[env(safe-area-inset-top)] text-paper backdrop-blur-md">
+        <nav aria-label="Primary" className="container-x flex h-14 items-center justify-between gap-3">
           <a href="#top" className="focus-ring flex items-baseline gap-3" aria-label={`${profile.name} — home`}>
             <span className="font-display text-2xl leading-none tracking-wide">{profile.wordmark}</span>
             <span className="hidden whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.2em] opacity-60 lg:block">
@@ -38,7 +45,7 @@ export function Nav() {
             </span>
           </a>
 
-          <ul className="hidden items-center gap-7 md:flex">
+          <ul className="hidden items-center gap-7 lg:flex">
             {navItems.map((item, i) => (
               <li key={item.id}>
                 <a
@@ -60,7 +67,7 @@ export function Nav() {
           <div className="flex items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="focus-ring hidden whitespace-nowrap bg-vermilion px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-paper transition-colors hover:bg-paper hover:text-ink sm:block"
+              className="focus-ring hidden shrink-0 whitespace-nowrap bg-vermilion px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-paper transition-colors hover:bg-paper hover:text-ink sm:block"
             >
               Hire me ↗
             </a>
@@ -70,7 +77,7 @@ export function Nav() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="focus-ring flex h-9 w-9 flex-col items-center justify-center gap-[5px] border border-dotted border-paper/50 md:hidden"
+              className="focus-ring flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-[5px] border border-dotted border-paper/50 lg:hidden"
             >
               <span className={`h-px w-4 bg-paper transition-transform duration-300 ${open ? "translate-y-[3px] rotate-45" : ""}`} />
               <span className={`h-px w-4 bg-paper transition-transform duration-300 ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
@@ -83,7 +90,7 @@ export function Nav() {
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-vermilion px-5 pb-8 pt-24 text-paper md:hidden"
+            className="fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto overscroll-contain bg-vermilion px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(5.5rem+env(safe-area-inset-top))] text-paper lg:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
@@ -100,7 +107,7 @@ export function Nav() {
                   <a
                     href={`#${item.id}`}
                     onClick={() => setOpen(false)}
-                    className="focus-ring flex items-baseline justify-between py-3 font-display text-[3.4rem] uppercase leading-none"
+                    className="focus-ring flex items-baseline justify-between gap-4 py-3 font-display text-[clamp(2.4rem,12vw,3.4rem)] uppercase leading-none"
                   >
                     {item.label}
                     <span className="font-mono text-[11px] tracking-widest opacity-70">0{i + 1}</span>
