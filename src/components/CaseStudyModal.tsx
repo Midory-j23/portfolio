@@ -102,7 +102,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] flex items-end justify-center p-0 sm:items-center sm:p-6"
+      className="fixed inset-0 z-[60] flex items-stretch justify-center p-0 sm:items-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -115,7 +115,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         role="dialog"
         aria-modal="true"
         aria-labelledby="case-study-title"
-        className="relative flex h-[94dvh] w-full max-w-[980px] flex-col overflow-hidden rounded-t-3xl border border-white/10 bg-[#07070a] shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)] sm:h-[90dvh] sm:rounded-3xl"
+        className="relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[980px] flex-col overflow-hidden border border-white/10 bg-[#07070a] pt-[env(safe-area-inset-top,0px)] shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)] sm:h-[90dvh] sm:max-h-[90dvh] sm:rounded-3xl"
         initial={{ opacity: 0, y: 50, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40, scale: 0.98 }}
@@ -123,7 +123,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
       >
         {/* header */}
         <div className="relative z-10 border-b border-white/10 bg-[#07070a]/90 backdrop-blur-xl">
-          <div className="flex items-center justify-between gap-3 px-5 py-4 sm:px-8">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-8 sm:py-4">
             <div className="flex min-w-0 items-center gap-3">
               <span aria-hidden className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-amber via-brand-pink to-brand-violet" />
               <div className="min-w-0">
@@ -138,9 +138,14 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 <a
                   href={publicPath(study.pdf)}
                   download
-                  className="focus-ring hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06] sm:inline-flex"
+                  className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06] sm:h-auto sm:w-auto sm:gap-1.5 sm:px-4 sm:py-2"
+                  aria-label="Download PDF"
                 >
-                  Download PDF <span aria-hidden>↓</span>
+                  <span aria-hidden className="sm:hidden">↓</span>
+                  <span className="hidden sm:inline">Download PDF</span>
+                  <span className="hidden sm:inline" aria-hidden>
+                    ↓
+                  </span>
                 </a>
               )}
               <button
@@ -155,14 +160,17 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
             </div>
           </div>
 
-          <nav aria-label="Case study sections" className="flex gap-1 overflow-x-auto px-4 pb-3 sm:px-7 [scrollbar-width:none]">
+          <nav
+            aria-label="Case study sections"
+            className="flex gap-1 overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:px-7 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-12px),transparent)] sm:[mask-image:none]"
+          >
             {sections.map((s) => (
               <button
                 key={s.id}
                 type="button"
                 onClick={() => goTo(s.id)}
                 aria-current={active === s.id ? "true" : undefined}
-                className="focus-ring shrink-0 rounded-full px-3.5 py-1.5 text-[13px] text-muted transition-colors hover:text-white aria-[current=true]:bg-white/10 aria-[current=true]:text-white"
+                className="focus-ring shrink-0 rounded-full px-3 py-1.5 text-[11px] text-muted transition-colors hover:text-white aria-[current=true]:bg-white/10 aria-[current=true]:text-white sm:px-3.5 sm:text-[13px]"
               >
                 {s.label}
               </button>
@@ -180,20 +188,20 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         <div ref={scrollRef} onScroll={onScroll} className="relative flex-1 overflow-y-auto overscroll-contain scroll-smooth">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,0,128,.16),transparent_70%)]" />
 
-          <div className="relative mx-auto max-w-[760px] px-5 pb-20 pt-10 sm:px-8 md:pt-14">
+          <div className="relative mx-auto max-w-[760px] px-4 pb-[max(5rem,env(safe-area-inset-bottom,0px))] pt-6 sm:px-8 sm:pb-20 sm:pt-10 md:pt-14">
             {/* hero */}
-            <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+            <p className="mb-3 inline-flex max-w-full flex-wrap gap-x-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:mb-4 sm:text-[11px] sm:tracking-[0.14em]">
               {study.tagline}
             </p>
-            <h2 className="text-gradient text-[clamp(1.85rem,6vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em]">
+            <h2 className="text-gradient text-[clamp(1.55rem,5.4vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em] sm:text-[clamp(1.85rem,6vw,3.75rem)]">
               {study.title}:{" "}
               <em className="text-brand pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em]">
                 {study.subtitle}
               </em>
             </h2>
-            {study.builtFor && <p className="mt-4 font-mono text-xs text-dim">{study.builtFor}</p>}
+            {study.builtFor && <p className="mt-3 font-mono text-xs text-dim sm:mt-4">{study.builtFor}</p>}
 
-            <div className="mt-14 space-y-16">
+            <div className="mt-8 space-y-12 sm:mt-14 sm:space-y-16">
               <section>
                 <Heading index={num("overview")} id="overview">{title("overview")}</Heading>
                 <div className="space-y-4 text-base leading-[1.8] text-muted">
@@ -224,15 +232,15 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
               {study.screens && study.screens.length > 0 && (
                 <section>
                   <Heading index={num("screens")} id="screens">{title("screens")}</Heading>
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-4">
                     {study.screens.map((s) => (
-                      <figure key={s.src} className={s.wide ? "sm:col-span-2" : ""}>
+                      <figure key={s.src} className={`min-w-0 ${s.wide ? "sm:col-span-2" : ""}`}>
                         <a
                           href={publicPath(s.src)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`focus-ring group relative block overflow-hidden rounded-2xl border border-white/10 bg-black ${
-                            s.portrait ? "mx-auto max-w-[280px]" : ""
+                          className={`focus-ring group relative block w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0c] sm:rounded-2xl ${
+                            s.portrait ? "mx-auto max-w-[min(100%,17.5rem)] sm:max-w-[280px]" : ""
                           }`}
                           aria-label={`Open full size: ${s.alt}`}
                         >
@@ -242,13 +250,17 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                             alt={s.alt}
                             loading="lazy"
                             decoding="async"
-                            className="block h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
+                            className="block h-auto max-h-[min(62vh,540px)] w-full object-contain object-top transition-transform duration-700 group-hover:scale-[1.01] sm:max-h-none sm:object-cover"
                           />
-                          <span className="absolute right-3 top-3 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
+                          <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-white backdrop-blur transition-opacity sm:right-3 sm:top-3 sm:px-2.5 sm:text-[10px] sm:opacity-0 sm:group-hover:opacity-100">
                             Open ↗
                           </span>
                         </a>
-                        <figcaption className={`mt-3 text-sm leading-relaxed text-muted ${s.portrait ? "mx-auto max-w-[280px] text-center" : ""}`}>
+                        <figcaption
+                          className={`mt-2.5 text-[13px] leading-relaxed text-muted sm:mt-3 sm:text-sm ${
+                            s.portrait ? "mx-auto max-w-[min(100%,17.5rem)] text-center sm:max-w-[280px]" : ""
+                          }`}
+                        >
                           {s.caption}
                         </figcaption>
                       </figure>

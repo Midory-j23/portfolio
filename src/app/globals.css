@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --site-header-h: 3.5rem;
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(4.5rem + env(safe-area-inset-top));
+  scroll-padding-top: calc(var(--site-header-h) + env(safe-area-inset-top, 0px));
   background: #100f0e;
 }
 
