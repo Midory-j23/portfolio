@@ -1,8 +1,10 @@
 "use client";
 
 import { MotionConfig } from "framer-motion";
+import { isPerfLite } from "@/lib/perf";
 
-/** Makes every framer-motion animation honour prefers-reduced-motion. */
+/** Honors prefers-reduced-motion; on lite tier, skips motion for smoother scroll on weak hardware. */
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  const lite = isPerfLite();
+  return <MotionConfig reducedMotion={lite ? "always" : "user"}>{children}</MotionConfig>;
 }

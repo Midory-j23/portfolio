@@ -398,6 +398,8 @@ export default function WildHuntFooter({
     if (!dctx || !wctx || !gctx) return
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const litePerf = document.documentElement.dataset.perf === "lite"
+    const lowMotion = reduced || litePerf
     const q = (sel: string) => marks.querySelector(sel) as SVGElement | null
     const circleA = q(".whf-ca")
     const circleB = q(".whf-cb")
@@ -661,7 +663,7 @@ export default function WildHuntFooter({
       const sweepY = sweep < 760 ? (sweep / 760) * h - box.y : -1e4
       const bucket = Math.floor(now / 70)
       const R = Math.max(70, Math.min(160, w * 0.1))
-      const hot = heat > 0.001 && !reduced
+      const hot = heat > 0.001 && !lowMotion
       const lx = px - box.x
       const ly = py - box.y
       const blink = t < 1080 ? ((1080 - t) / 250) * 0.4 : 0
@@ -703,7 +705,7 @@ export default function WildHuntFooter({
     }
 
     const draw = (now: number) => {
-      const t = t0 < 0 ? -1 : reduced ? 1e9 : Math.max(0, now - t0)
+      const t = t0 < 0 ? -1 : lowMotion ? 1e9 : Math.max(0, now - t0)
       // Heat eases in while the pointer is inside and bleeds out after it leaves.
       const target = inside && opts.current.interactive ? 1 : 0
       const dt = Math.min(0.05, (now - heatAt) / 1000)
@@ -724,7 +726,7 @@ export default function WildHuntFooter({
         } else sweepLine.setAttribute("opacity", "0")
       }
       const entering = t >= 0 && t < 1200
-      awake = entering || heat > 0 || sweep < 760 || (inside && !reduced)
+      awake = entering || heat > 0 || sweep < 760 || (inside && !lowMotion)
     }
 
     const loop = () => {
@@ -768,7 +770,7 @@ export default function WildHuntFooter({
       wake()
     }
     const onDown = (e: PointerEv) => {
-      if (!opts.current.interactive || reduced) return
+      if (!opts.current.interactive || lowMotion) return
       if ((e.target as HTMLElement).closest("a,button")) return
       sweepAt = now0()
       wake()

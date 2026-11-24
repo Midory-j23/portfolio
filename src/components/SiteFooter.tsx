@@ -1,8 +1,13 @@
+"use client";
+
 import WildHuntFooter from "@/components/ui/wild-hunt-footer";
 import { profile } from "@/data/content";
+import { usePerfLite } from "@/hooks/usePerfLite";
 
 /** The Wild Hunt footer in its original vermilion: the visual reference for the whole site. */
 export function SiteFooter() {
+  const lite = usePerfLite();
+
   return (
     <WildHuntFooter
       wordmark="MOHAMMAD"
@@ -11,6 +16,8 @@ export function SiteFooter() {
       sideNote={`Based in ${profile.location.replace(/[[\]]/g, "")} · open to new work`}
       legal={`© ${new Date().getFullYear()} ${profile.name}`}
       colophon="Painting: Peter Nicolai Arbo, Åsgårdsreien (The Wild Hunt of Odin), 1872, public domain via Wikimedia Commons. The blackletter is drawn in cells; nothing on this sheet is a font."
+      interactive={!lite}
+      grain={lite ? 0 : 0.6}
       columns={[
         {
           title: "Explore",

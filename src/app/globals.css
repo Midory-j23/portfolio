@@ -55,6 +55,32 @@ body::after {
   }
 }
 
+/* Lite tier: weaker CPU/RAM — fewer full-screen blends and infinite animations. */
+html[data-perf="lite"] body::after {
+  display: none;
+}
+
+html[data-perf="lite"] .animate-marquee {
+  animation-play-state: paused;
+}
+
+html[data-perf="lite"] .animate-pulseDot {
+  animation: none;
+}
+
+html[data-perf="lite"] .hero-painting img {
+  mix-blend-mode: normal !important;
+}
+
+html[data-perf="lite"] .modal-backdrop {
+  backdrop-filter: none !important;
+}
+
+html[data-perf="lite"] main > section:not(#top) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 /* Section tones: each sets background, text colour and the accent used by <Accent>. */
 .tone-ink { background: #100f0e; color: #f4efe5; --accent: #e2281b; }
 .tone-red { background: #e2281b; color: #f4efe5; --accent: #100f0e; }

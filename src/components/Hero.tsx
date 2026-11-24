@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { profile } from "@/data/content";
+import { usePerfLite } from "@/hooks/usePerfLite";
 import { LineReveal, Reveal } from "./Reveal";
 import { Reticle } from "./Reticle";
 
@@ -10,32 +11,49 @@ const PAINTING =
   "https://cdn.21st.dev/assets/mirror/67/671b69b8614847816a300a1d11ee5704a7b2f5c51b8b50d45f17dfc49af09b68.jpg";
 const ticks = ["A1", "B2", "C3", "D4", "E5", "F6"];
 
+const painting = (
+  <div className="hero-painting absolute inset-0 overflow-hidden bg-vermilion">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img
+      src={PAINTING}
+      alt=""
+      aria-hidden
+      draggable={false}
+      className="h-full w-full object-cover mix-blend-multiply"
+      style={{ objectPosition: "center 42%", filter: "grayscale(1) contrast(1.35) brightness(1.05)" }}
+    />
+  </div>
+);
+
+const figCaption = (
+  <figcaption className="absolute bottom-28 left-6 right-8 hidden justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80 md:flex md:left-12 md:right-12">
+    <span>Fig. 01</span>
+    <span>Åsgårdsreien, 1872</span>
+  </figcaption>
+);
+
 export function Hero() {
+  const lite = usePerfLite();
+
   return (
     <section id="top" className="tone-red relative flex min-h-[100dvh] flex-col overflow-hidden">
       <Reticle />
-      <motion.figure
-        className="absolute inset-0 z-0"
-        initial={{ clipPath: "inset(0 0 100% 0)" }}
-        animate={{ clipPath: "inset(0 0 0% 0)" }}
-        transition={{ duration: 1.3, delay: 0.3, ease: [0.65, 0, 0.2, 1] }}
-      >
-        <div className="absolute inset-0 overflow-hidden bg-vermilion">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={PAINTING}
-            alt=""
-            aria-hidden
-            draggable={false}
-            className="h-full w-full object-cover mix-blend-multiply"
-            style={{ objectPosition: "center 42%", filter: "grayscale(1) contrast(1.35) brightness(1.05)" }}
-          />
-        </div>
-        <figcaption className="absolute bottom-28 left-6 right-8 hidden justify-between font-mono text-[10px] uppercase tracking-[0.16em] opacity-80 md:flex md:left-12 md:right-12">
-          <span>Fig. 01</span>
-          <span>Åsgårdsreien, 1872</span>
-        </figcaption>
-      </motion.figure>
+      {lite ? (
+        <figure className="absolute inset-0 z-0">
+          {painting}
+          {figCaption}
+        </figure>
+      ) : (
+        <motion.figure
+          className="absolute inset-0 z-0"
+          initial={{ clipPath: "inset(0 0 100% 0)" }}
+          animate={{ clipPath: "inset(0 0 0% 0)" }}
+          transition={{ duration: 1.3, delay: 0.3, ease: [0.65, 0, 0.2, 1] }}
+        >
+          {painting}
+          {figCaption}
+        </motion.figure>
+      )}
 
       <div className="container-x relative z-[2] flex flex-1 flex-col pb-12 pt-[var(--site-header-total)] md:min-h-[100dvh] md:pb-14 md:pt-[calc(6rem+var(--site-safe-top))]">
         {/* meta strip */}

@@ -139,7 +139,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
       transition={{ duration: 0.25 }}
     >
       <div
-        className="absolute inset-0 bg-[#07070a] sm:bg-black/80 sm:backdrop-blur-md"
+        className="modal-backdrop absolute inset-0 bg-[#07070a] sm:bg-black/80 sm:backdrop-blur-md"
         onClick={onClose}
         aria-hidden
       />

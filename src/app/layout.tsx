@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Anton, Geist, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/content";
@@ -37,6 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable} ${display.variable} ${serif.variable}`}>
       <body>
+        <Script id="perf-tier" strategy="beforeInteractive">
+          {`(function(){try{var lite=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!lite){var c=navigator.hardwareConcurrency||8;var m=navigator.deviceMemory||8;if(c<=4||m<=4)lite=true;var conn=navigator.connection;if(conn&&(conn.saveData||conn.effectiveType==="slow-2g"||conn.effectiveType==="2g"))lite=true;}document.documentElement.dataset.perf=lite?"lite":"full";}catch(e){document.documentElement.dataset.perf="full";}})();`}
+        </Script>
         <Providers>{children}</Providers>
       </body>
     </html>
