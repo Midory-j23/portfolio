@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import type { CaseStudy } from "@/data/caseStudy";
 import { publicPath } from "@/lib/publicPath";
@@ -8,8 +9,8 @@ import { publicPath } from "@/lib/publicPath";
 function Heading({ index, id, children }: { index: string; id: string; children: React.ReactNode }) {
   return (
     <div id={`cs-${id}`} className="mb-6 flex items-baseline gap-3 pt-2">
-      <span className="font-mono text-xs text-brand">{index}</span>
-      <h3 className="text-2xl font-semibold tracking-[-0.04em] md:text-3xl">{children}</h3>
+      <span className="font-mono text-xs text-vermilion">{index}</span>
+      <h3 className="text-2xl font-semibold tracking-[-0.04em] text-paper md:text-3xl">{children}</h3>
     </div>
   );
 }
@@ -130,9 +131,9 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
     el.scrollTo({ top: offset, behavior: "smooth" });
   };
 
-  return (
+  return createPortal(
     <motion.div
-      className="fixed inset-0 z-[60] sm:flex sm:items-center sm:justify-center sm:p-6"
+      className="case-study text-paper fixed inset-0 z-[60] sm:flex sm:items-center sm:justify-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -149,7 +150,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         role="dialog"
         aria-modal="true"
         aria-labelledby="case-study-title"
-        className="fixed inset-0 z-10 flex min-h-0 flex-col overflow-hidden bg-[#07070a] sm:relative sm:inset-auto sm:h-[90dvh] sm:max-h-[90dvh] sm:w-full sm:max-w-[980px] sm:rounded-3xl sm:border sm:border-white/10 sm:shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)]"
+        className="fixed inset-0 z-10 flex min-h-0 flex-col overflow-hidden bg-[#07070a] text-paper sm:relative sm:inset-auto sm:h-[90dvh] sm:max-h-[90dvh] sm:w-full sm:max-w-[980px] sm:rounded-3xl sm:border sm:border-white/10 sm:shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -161,8 +162,8 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
             <div className="flex min-w-0 items-center gap-3">
               <span aria-hidden className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-amber via-brand-pink to-brand-violet" />
               <div className="min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-dim">Case study</p>
-                <h2 id="case-study-title" className="truncate text-lg font-semibold tracking-[-0.03em]">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-paper/65">Case study</p>
+                <h2 id="case-study-title" className="truncate text-lg font-semibold tracking-[-0.03em] text-paper">
                   {study.title}
                 </h2>
               </div>
@@ -172,7 +173,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 <a
                   href={publicPath(study.pdf)}
                   download
-                  className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06] sm:h-auto sm:w-auto sm:gap-1.5 sm:px-4 sm:py-2"
+                  className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-sm text-paper transition-colors hover:border-white/40 hover:bg-white/[0.06] sm:h-auto sm:w-auto sm:gap-1.5 sm:px-4 sm:py-2"
                   aria-label="Download PDF"
                 >
                   <span aria-hidden className="sm:hidden">↓</span>
@@ -187,7 +188,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 type="button"
                 onClick={onClose}
                 aria-label="Close case study"
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-white/40 hover:bg-white/[0.06]"
+                className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-paper transition-colors hover:border-white/40 hover:bg-white/[0.06]"
               >
                 <span aria-hidden className="text-lg leading-none">✕</span>
               </button>
@@ -204,7 +205,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 type="button"
                 onClick={() => goTo(s.id)}
                 aria-current={active === s.id ? "true" : undefined}
-                className="focus-ring shrink-0 rounded-full px-2.5 py-1.5 text-[10px] text-muted transition-colors hover:text-white aria-[current=true]:bg-white/10 aria-[current=true]:text-white sm:px-3.5 sm:text-[13px]"
+                className="focus-ring shrink-0 rounded-full px-2.5 py-1.5 text-[10px] text-paper/70 transition-colors hover:text-paper aria-[current=true]:bg-white/10 aria-[current=true]:text-paper sm:px-3.5 sm:text-[13px]"
               >
                 <span className="sm:hidden">{s.tab}</span>
                 <span className="hidden sm:inline">{s.label}</span>
@@ -226,23 +227,23 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
           <div className="relative mx-auto max-w-[760px] px-4 pb-[max(5rem,env(safe-area-inset-bottom,0px))] pt-4 sm:px-8 sm:pb-20 sm:pt-10 md:pt-14">
             {/* hero — title lives in the sticky bar on phones */}
             <div className="hidden sm:block">
-              <p className="mb-4 inline-flex max-w-full flex-wrap gap-x-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+              <p className="mb-4 inline-flex max-w-full flex-wrap gap-x-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/75">
                 {study.tagline}
               </p>
-              <h2 className="text-gradient text-[clamp(1.85rem,6vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em]">
+              <h2 className="text-[clamp(1.85rem,6vw,3.75rem)] font-semibold leading-[1.22] tracking-[-0.05em] text-paper">
                 {study.title}:{" "}
-                <em className="text-brand pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em]">
+                <em className="pr-[0.08em] font-serif font-normal italic leading-[1.15] tracking-[-0.02em] text-vermilion">
                   {study.subtitle}
                 </em>
               </h2>
-              {study.builtFor && <p className="mt-4 font-mono text-xs text-dim">{study.builtFor}</p>}
+              {study.builtFor && <p className="mt-4 font-mono text-xs text-paper/70">{study.builtFor}</p>}
             </div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-dim sm:hidden">{study.tagline}</p>
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-paper/70 sm:hidden">{study.tagline}</p>
 
             <div className="mt-8 space-y-12 sm:mt-14 sm:space-y-16">
               <section>
                 <Heading index={num("overview")} id="overview">{title("overview")}</Heading>
-                <div className="space-y-4 text-base leading-[1.8] text-muted">
+                <div className="space-y-4 text-base leading-[1.8] text-paper/85">
                   {study.overview.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
@@ -251,10 +252,10 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
               <section>
                 <Heading index={num("problem")} id="problem">{title("problem")}</Heading>
-                <p className="text-base leading-[1.8] text-muted">{study.problem.intro}</p>
+                <p className="text-base leading-[1.8] text-paper/85">{study.problem.intro}</p>
                 <ul className="mt-5 space-y-3">
                   {study.problem.points.map((p, i) => (
-                    <li key={i} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-[15px] leading-relaxed text-muted">
+                    <li key={i} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-[15px] leading-relaxed text-paper/85">
                       <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-brand-pink to-brand-amber" />
                       {p}
                     </li>
@@ -264,7 +265,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
               <section>
                 <Heading index={num("solution")} id="solution">{title("solution")}</Heading>
-                <p className="border-l-2 border-brand-violet pl-5 text-lg leading-[1.7] text-fg">{study.solution}</p>
+                <p className="border-l-2 border-vermilion pl-5 text-lg leading-[1.7] text-paper">{study.solution}</p>
               </section>
 
               {study.screens && study.screens.length > 0 && (
@@ -295,7 +296,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                           </span>
                         </a>
                         <figcaption
-                          className={`mt-2.5 text-[13px] leading-relaxed text-muted sm:mt-3 sm:text-sm ${
+                          className={`mt-2.5 text-[13px] leading-relaxed text-paper/75 sm:mt-3 sm:text-sm ${
                             s.portrait ? "mx-auto max-w-[min(100%,17.5rem)] text-center sm:max-w-[280px]" : ""
                           }`}
                         >
@@ -304,7 +305,9 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                       </figure>
                     ))}
                   </div>
-                  {study.screensNote && <p className="mt-5 font-mono text-[11px] leading-relaxed text-dim">{study.screensNote}</p>}
+                  {study.screensNote && (
+                    <p className="mt-5 font-mono text-[11px] leading-relaxed text-paper/70">{study.screensNote}</p>
+                  )}
                 </section>
               )}
 
@@ -313,12 +316,12 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 <div className="space-y-10">
                   {study.features.map((g) => (
                     <div key={g.group}>
-                      <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-brand">{g.group}</p>
+                      <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-vermilion">{g.group}</p>
                       <div className="grid gap-3 sm:grid-cols-2">
                         {g.items.map((it) => (
                           <div key={it.title} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-white/20 hover:bg-white/[0.04]">
-                            <h4 className="font-medium tracking-[-0.02em]">{it.title}</h4>
-                            <p className="mt-2 text-sm leading-relaxed text-muted">{it.text}</p>
+                            <h4 className="font-medium tracking-[-0.02em] text-paper">{it.title}</h4>
+                            <p className="mt-2 text-sm leading-relaxed text-paper/80">{it.text}</p>
                           </div>
                         ))}
                       </div>
@@ -329,7 +332,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
               <section>
                 <Heading index={num("architecture")} id="architecture">{title("architecture")}</Heading>
-                <p className="mb-6 text-base leading-[1.8] text-muted">
+                <p className="mb-6 text-base leading-[1.8] text-paper/85">
                   {study.architecture.length === 4 ? "Four pieces work together:" : "How the pieces fit together:"}
                 </p>
                 <ol className="grid gap-3 sm:grid-cols-2">
@@ -337,15 +340,17 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                     <li key={a.title} className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-5">
                       <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-brand-blue via-brand-violet to-brand-pink" />
                       <div className="flex items-center justify-between gap-3">
-                        <span className="font-mono text-xs text-brand">0{i + 1}</span>
-                        <span className="chip">{a.tech}</span>
+                        <span className="font-mono text-xs text-vermilion">0{i + 1}</span>
+                        <span className="chip !border-paper/25 !text-paper/80">{a.tech}</span>
                       </div>
-                      <h4 className="mt-4 font-medium tracking-[-0.02em]">{a.title}</h4>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{a.text}</p>
+                      <h4 className="mt-4 font-medium tracking-[-0.02em] text-paper">{a.title}</h4>
+                      <p className="mt-2 text-sm leading-relaxed text-paper/80">{a.text}</p>
                     </li>
                   ))}
                 </ol>
-                <p className="mt-5 rounded-xl border border-dashed border-white/15 p-4 text-sm leading-relaxed text-muted">{study.architectureNote}</p>
+                <p className="mt-5 rounded-xl border border-dashed border-white/15 p-4 text-sm leading-relaxed text-paper/80">
+                  {study.architectureNote}
+                </p>
               </section>
 
               <section>
@@ -353,14 +358,16 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 <dl className="divide-y divide-white/10 rounded-2xl border border-white/10">
                   {study.highlights.map((h) => (
                     <div key={h.area} className="grid gap-1 p-5 sm:grid-cols-[140px_1fr] sm:gap-6">
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-brand">{h.area}</dt>
-                      <dd className="text-sm leading-relaxed text-muted">{h.text}</dd>
+                      <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-vermilion">{h.area}</dt>
+                      <dd className="text-sm leading-relaxed text-paper/85">{h.text}</dd>
                     </div>
                   ))}
                 </dl>
                 <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech stack">
                   {study.stack.map((t) => (
-                    <li key={t} className="chip !text-fg">{t}</li>
+                    <li key={t} className="chip !border-paper/25 !text-paper">
+                      {t}
+                    </li>
                   ))}
                 </ul>
               </section>
@@ -370,10 +377,10 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                 <ol className="space-y-3">
                   {study.challenges.map((c, i) => (
                     <li key={c.title} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-                      <span className="font-mono text-xs text-brand">0{i + 1}</span>
+                      <span className="font-mono text-xs text-vermilion">0{i + 1}</span>
                       <div>
-                        <h4 className="font-medium tracking-[-0.02em]">{c.title}</h4>
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted">{c.text}</p>
+                        <h4 className="font-medium tracking-[-0.02em] text-paper">{c.title}</h4>
+                        <p className="mt-1.5 text-sm leading-relaxed text-paper/80">{c.text}</p>
                       </div>
                     </li>
                   ))}
@@ -382,7 +389,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
 
               <section>
                 <Heading index={num("outcome")} id="outcome">{title("outcome")}</Heading>
-                <p className="text-brand text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.03em]">
+                <p className="text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.03em] text-paper">
                   {study.outcome}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -401,7 +408,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                     <a
                       href={publicPath(study.pdf)}
                       download
-                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06]"
+                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm text-paper transition-colors hover:border-white/40 hover:bg-white/[0.06]"
                     >
                       Download the PDF <span aria-hidden>↓</span>
                     </a>
@@ -409,7 +416,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
                   <button
                     type="button"
                     onClick={onClose}
-                    className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm transition-colors hover:border-white/40 hover:bg-white/[0.06]"
+                    className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm text-paper transition-colors hover:border-white/40 hover:bg-white/[0.06]"
                   >
                     Back to projects
                   </button>
@@ -419,6 +426,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
