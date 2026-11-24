@@ -37,7 +37,7 @@ export function Hero() {
         </figcaption>
       </motion.figure>
 
-      <div className="container-x relative z-[2] flex flex-1 flex-col pb-8 pt-[var(--site-header-total)] md:min-h-[100dvh] md:pb-10 md:pt-[calc(6rem+var(--site-safe-top))]">
+      <div className="container-x relative z-[2] flex flex-1 flex-col pb-12 pt-[var(--site-header-total)] md:min-h-[100dvh] md:pb-14 md:pt-[calc(6rem+var(--site-safe-top))]">
         {/* meta strip */}
         <Reveal>
           <div className="rule-dot flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t pt-3 font-mono text-[11px] uppercase tracking-[0.2em]">
