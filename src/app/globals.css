@@ -76,6 +76,32 @@ html[data-perf="lite"] .modal-backdrop {
   backdrop-filter: none !important;
 }
 
+html.modal-open {
+  overflow: hidden !important;
+}
+
+html.modal-open body::after {
+  display: none;
+}
+
+.case-study-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(244, 239, 229, 0.28) transparent;
+}
+
+.case-study-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.case-study-scroll::-webkit-scrollbar-thumb {
+  background: rgba(244, 239, 229, 0.28);
+  border-radius: 999px;
+}
+
+.case-study-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 html[data-perf="lite"] main > section:not(#top) {
   content-visibility: auto;
   contain-intrinsic-size: auto 720px;

@@ -59,11 +59,13 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
   const num = (id: string) => sections.find((s) => s.id === id)!.n;
   const title = (id: string) => sections.find((s) => s.id === id)!.title;
 
-  // Lock page scroll, focus the dialog, restore focus on close.
+  // Lock page scroll (html + body), focus the dialog, restore on close.
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     const scrollY = window.scrollY;
+    const html = document.documentElement;
     const body = document.body;
+    const prevHtml = html.style.overflow;
     const prev = {
       position: body.style.position,
       top: body.style.top,
@@ -72,6 +74,8 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
       width: body.style.width,
       overflow: body.style.overflow,
     };
+    html.classList.add("modal-open");
+    html.style.overflow = "hidden";
     body.style.position = "fixed";
     body.style.top = `-${scrollY}px`;
     body.style.left = "0";
@@ -80,6 +84,8 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
     body.style.overflow = "hidden";
     closeRef.current?.focus();
     return () => {
+      html.classList.remove("modal-open");
+      html.style.overflow = prevHtml;
       Object.assign(body.style, prev);
       window.scrollTo(0, scrollY);
       previous?.focus?.();
@@ -109,31 +115,45 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  const sectionAnchor = 148;
+
   const onScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
     const max = el.scrollHeight - el.clientHeight;
     setProgress(max > 0 ? el.scrollTop / max : 0);
-    const top = el.getBoundingClientRect().top + 140;
+
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 32) {
+      setActive(sections[sections.length - 1].id);
+      return;
+    }
+
+    const containerTop = el.getBoundingClientRect().top;
     let current = sections[0].id;
     for (const s of sections) {
       const node = document.getElementById(`cs-${s.id}`);
-      if (node && node.getBoundingClientRect().top <= top) current = s.id;
+      if (!node) continue;
+      if (node.getBoundingClientRect().top - containerTop <= sectionAnchor) current = s.id;
     }
     setActive(current);
   }, [sections]);
+
+  useEffect(() => {
+    onScroll();
+  }, [onScroll]);
 
   const goTo = (id: string) => {
     const el = scrollRef.current;
     const node = document.getElementById(`cs-${id}`);
     if (!el || !node) return;
-    const offset = node.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop - 130;
-    el.scrollTo({ top: offset, behavior: "smooth" });
+    const offset =
+      node.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop - sectionAnchor;
+    el.scrollTo({ top: Math.max(0, offset), behavior: "smooth" });
   };
 
   return createPortal(
     <motion.div
-      className="case-study text-paper fixed inset-0 z-[60] sm:flex sm:items-center sm:justify-center sm:p-6"
+      className="case-study text-paper fixed inset-0 z-[100] flex flex-col overflow-hidden overscroll-none sm:items-center sm:justify-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -150,7 +170,7 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         role="dialog"
         aria-modal="true"
         aria-labelledby="case-study-title"
-        className="fixed inset-0 z-10 flex min-h-0 flex-col overflow-hidden bg-[#07070a] text-paper sm:relative sm:inset-auto sm:h-[90dvh] sm:max-h-[90dvh] sm:w-full sm:max-w-[980px] sm:rounded-3xl sm:border sm:border-white/10 sm:shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)]"
+        className="relative z-10 flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#07070a] text-paper sm:h-[min(90dvh,900px)] sm:max-h-[min(90dvh,900px)] sm:max-w-[980px] sm:rounded-3xl sm:border sm:border-white/10 sm:shadow-[0_40px_160px_-20px_rgba(121,40,202,.55)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -221,7 +241,12 @@ export function CaseStudyModal({ study, onClose }: { study: CaseStudy; onClose: 
         </div>
 
         {/* body */}
-        <div ref={scrollRef} onScroll={onScroll} className="relative flex-1 overflow-y-auto overscroll-contain scroll-smooth">
+        <div
+          ref={scrollRef}
+          data-cs-scroll
+          onScroll={onScroll}
+          className="case-study-scroll relative min-h-0 flex-1 overflow-y-auto overscroll-contain scroll-smooth"
+        >
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,0,128,.16),transparent_70%)]" />
 
           <div className="relative mx-auto max-w-[760px] px-4 pb-[max(5rem,env(safe-area-inset-bottom,0px))] pt-4 sm:px-8 sm:pb-20 sm:pt-10 md:pt-14">
