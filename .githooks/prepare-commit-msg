@@ -1,0 +1,17 @@
+#!/bin/sh
+# Blocks Cursor from being added as co-author on GitHub (run: git config core.hooksPath .githooks)
+MSG_FILE="$1"
+case "$(uname -s 2>/dev/null)" in
+  MINGW*|MSYS*|CYGWIN*)
+    python - "$MSG_FILE" <<'PY'
+import pathlib, sys
+path = pathlib.Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+lines = [l for l in text.splitlines(keepends=True) if "Co-authored-by: Cursor" not in l]
+path.write_text("".join(lines), encoding="utf-8")
+PY
+    ;;
+  *)
+  sed -i.bak '/^Co-authored-by: Cursor/d' "$MSG_FILE" && rm -f "$MSG_FILE.bak"
+  ;;
+esac
