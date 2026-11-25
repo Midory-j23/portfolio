@@ -1,8 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { profile } from "@/data/content";
-import { usePerfLite } from "@/hooks/usePerfLite";
 import { LineReveal, Reveal } from "./Reveal";
 import { Reticle } from "./Reticle";
 
@@ -33,27 +31,13 @@ const figCaption = (
 );
 
 export function Hero() {
-  const lite = usePerfLite();
-
   return (
     <section id="top" className="tone-red relative flex min-h-[100dvh] flex-col overflow-hidden">
       <Reticle />
-      {lite ? (
-        <figure className="absolute inset-0 z-0">
-          {painting}
-          {figCaption}
-        </figure>
-      ) : (
-        <motion.figure
-          className="absolute inset-0 z-0"
-          initial={{ clipPath: "inset(0 0 100% 0)" }}
-          animate={{ clipPath: "inset(0 0 0% 0)" }}
-          transition={{ duration: 1.3, delay: 0.3, ease: [0.65, 0, 0.2, 1] }}
-        >
-          {painting}
-          {figCaption}
-        </motion.figure>
-      )}
+      <figure className="absolute inset-0 z-0">
+        {painting}
+        {figCaption}
+      </figure>
 
       <div className="container-x relative z-[2] flex flex-1 flex-col pb-12 pt-[var(--site-header-total)] md:min-h-[100dvh] md:pb-14 md:pt-[calc(6rem+var(--site-safe-top))]">
         {/* meta strip */}
