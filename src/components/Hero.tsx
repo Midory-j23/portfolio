@@ -85,7 +85,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.55} className="md:col-span-4 md:col-start-9">
             <p className="text-base leading-relaxed opacity-90 md:text-[17px]">
-              I&rsquo;m a Software Developer with 3 years of experience creating modern web applications, intuitive
+              I'm a Software Developer with 3 years of experience creating modern web applications, intuitive
               interfaces, and technology-driven solutions.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -97,7 +97,7 @@ export function Hero() {
                 <span className="transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden>↓</span>
               </a>
               <a href="#contact" className="focus-ring link-u font-mono text-[11px] uppercase tracking-[0.18em]">
-                Let&rsquo;s talk →
+                Let's talk →
               </a>
             </div>
           </Reveal>
